@@ -99,7 +99,7 @@ img {
     display: block;
     margin-top: -15px;
   }
-} 
+}
 
 main {
   font-size: 130%;
@@ -226,12 +226,23 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/* 
+
+.error {
+  font-size: 0.4em;
+  color: #e54858;
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 0px;
+  text-align: right;
+  line-height: 0.3;
+  transition: 0.3s;
+}
+
 input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
     color: red;
-} */
+}
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -527,3 +538,10 @@ footer {
   }
 }
 
+input:invalid {
+  border: 2px solid red;
+}
+
+input:valid {
+  border: 1px solid black;
+}
