@@ -62,6 +62,7 @@
               action="index.html"
               method="get"
               onsubmit="return validate();"
+              novalidate
             >
               <div
                 class="formData">
@@ -112,7 +113,7 @@
               </div><small class="error" id="errorquantity"></small>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
-                class="formData">
+                class="formData" id="locationCity">
                 <input
                   class="checkbox-input"
                   type="radio"
@@ -188,7 +189,7 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
-                  checked
+
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon"></span>
