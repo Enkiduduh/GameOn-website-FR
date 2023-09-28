@@ -9,6 +9,14 @@ function editNav() {
 
 let errorExists = false;
 let error;
+let errorFirst = true;
+let errorLast = true;
+let errorEmail = true;
+let errorQuantity = true;
+let errorBirth = true;
+let errorCGV = true;
+let errorCity = true;
+let validateFormOk = false;
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -17,7 +25,18 @@ let formData = document.querySelectorAll(".formData");
 const form = document.getElementById("myForm");
 const modalCloseBtn = document.querySelector(".close");
 const checkBox1 = document.getElementById("checkbox1");
+const buttonSubmit = document.getElementById("btn-submit-final");
+const firstInput = document.getElementById("first");
+const lastInput = document.getElementById("last");
+const emailInput = document.getElementById("email");
+const birthInput = document.getElementById("birthdate");
+const quantityInput = document.getElementById("quantity");
+const modalBodySuccess = document.getElementById("modal")
 
+let formOk = 0;
+
+
+// const btnSubmit = document.querySelector(".btn-submit");
 ////////////////////////////////////////////////////////
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -62,40 +81,42 @@ if (!form.last.value) {
 if (!form.email.value) {
   let error = document.querySelector("#erroremail");
   error.innerHTML="Vous devez saisir un email valide. ex: xxx@xx.xx";
-  errorExists = true;
-  e.preventDefault();
+  errorExists = true;  e.preventDefault();
 }
 if (!form.quantity.value) {
   let error = document.querySelector("#errorquantity");
   error.innerHTML="Veuillez saisir une valeur numérique entre 0 et 99.";
-  errorExists = true;
-  e.preventDefault();
+  errorExists = true;  e.preventDefault();
 }
 if (!checkBox1.checked) {
   let error = document.querySelector("#errorcheckbox1");
   error.innerHTML="Vous devez vérifier que vous acceptez les termes et conditions.";
-  errorExists = true;
-  e.preventDefault();
+  errorExists = true;  e.preventDefault();
 }
 if (!form.birthdate.value) {
   let error = document.querySelector("#errorbirthdate");
   error.innerHTML="Vous devez saisir une date de naissance valide.";
-  errorExists = true;
-  e.preventDefault();
+  errorExists = true;  e.preventDefault();
 }
-if (!document.forms["reserve"]["location"].value) {
+if (errorCity) {
+  e.preventDefault();
   let error = document.querySelector("#errorlocationcity");
-  error.innerHTML="Veuillez choisir une ville pour la participation au tournoi.";
-  errorExists = true;
-  e.preventDefault();
-}
-
-
+  error.innerHTML="Vous devez choisir une ville pour le tournoi.";
+  errorExists = true;}
 });
 
+const preValidate = function () {
+if (!errorExists) {
+  buttonSubmit.style.cursor = "pointer";
+};
+};
+
+//
+
 const validate = function () {
-  if (errorExists === false) {
-    document.querySelector(".modal-body").innerHTML = "Merci ! Votre réservation a été reçue."
+  if (errorFirst == false) {
+    modalBodySuccess.classList.add("modal-body-success");
+    document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription"
   };
 };
 
@@ -112,16 +133,13 @@ const valideCheckBox1 = function(checkbox1) {
   let error = document.querySelector("#errorcheckbox1");
   if (checkBox1.checked) {
     error.innerHTML="";
+    errorExists = false;
   } else {
     error.innerHTML="Vous devez vérifier que vous acceptez les termes et conditions.";
     errorExists = true;
   }
 };
 // ////////////////////////////////////////////////////////
-
-
-
-
 
 // ////////////////////////////////////////////////////////
 // //ECOUTER L'EVENEMENT INPUT SUR LE PRENOM'
@@ -136,10 +154,13 @@ const valideFirst = function(inputFirst) {
   let testFirst = firstRegExp.test(inputFirst.value)
   let error = document.querySelector("#errorfirst");
   if (testFirst) {
-    console.log(form.first.value);
+    firstInput.classList.add("valid-input");
     error.innerHTML="";
+    errorExists = false;
   }
   else {
+    firstInput.classList.add("invalid-input");
+    firstInput.classList.remove("valid-input");
     error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
     errorExists = true;
   }
@@ -158,10 +179,13 @@ const valideLast = function(inputLast) {
   let testLast = lastRegExp.test(inputLast.value)
   let error = document.querySelector("#errorname");
   if (testLast) {
-    console.log(form.last.value);
+    lastInput.classList.add("valid-input");
     error.innerHTML="";
+    errorExists = false;
   }
   else {
+    lastInput.classList.add("invalid-input");
+    lastInput.classList.remove("valid-input");
     error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     errorExists = true;
   }
@@ -181,8 +205,12 @@ const valideEmail = function(inputEmail) {
   let testEmail = emailRegExp.test(inputEmail.value)
   let error = document.querySelector("#erroremail")
   if (testEmail) {
+    emailInput.classList.add("valid-input");
     error.innerHTML="";
+    errorExists = false;
   } else {
+    emailInput.classList.add("invalid-input");
+    emailInput.classList.remove("valid-input");
     error.innerHTML="Vous devez saisir un email valide. ex: xxx@xx.xx";
     errorExists = true;
   }
@@ -203,9 +231,13 @@ const valideBirthdate = function(element) {
   let testBirthdate = birthdateRegExp.test(element.value)
   let error = document.querySelector("#errorbirthdate")
   if (testBirthdate) {
+    birthInput.classList.add("valid-input");
     error.innerHTML="";
+    errorExists = false;
   } else {
     console.log(form.birthdate.value);
+    birthInput.classList.add("invalid-input");
+    birthInput.classList.remove("valid-input");
     error.innerHTML="Vous devez saisir une date de naissance valide.";
     errorExists = true;
   }
@@ -221,18 +253,50 @@ form.quantity.addEventListener('input',function() {
 });
 //Fonction vérifier que le nombre de participation est remplie
 const valideQuantity = function(inputQuantity) {
-  let quantityRegExp = new RegExp(/^(\d)+$/,'g');
+  let quantityRegExp = new RegExp(/^(0?[1-9]|[1-9][0-9])$/,'g');
   let testQuantity = quantityRegExp.test(inputQuantity.value);
   let error = document.querySelector("#errorquantity");
   if (testQuantity) {
+      quantityInput.classList.add("valid-input");
       error.innerHTML="";
+      errorExists = false;
   } else if (testQuantity.value == "") {
+      quantityInput.classList.add("invalid-input");
+      quantityInput.classList.remove("valid-input");
       error.innerHTML="Veuillez saisir une valeur numérique entre 0 et 99.";
       errorExists = true;
   } else {
+      quantityInput.classList.add("invalid-input");
+      quantityInput.classList.remove("valid-input");
       error.innerHTML="Veuillez saisir une valeur numérique entre 0 et 99.";
       errorExists = true;
   }};
+
+
+  const citys = document.querySelectorAll(".city");
+
+  function checkCitys() {
+      console.log(Array.from(citys).some((city) => city.checked));
+      if (document.forms["reserve"]["location"].value) {
+        errorExists = false;
+      } else {
+        let error = document.querySelector("#errorlocationcity");
+        error.innerHTML="Vous devez choisir une ville pour le tournoi.";
+        errorExists = true;
+      }
+    }
+
+    citys.forEach((city) => {
+      city.addEventListener("change", checkCitys);
+    });
+
+
+
+
+
+
+
+
 
 
 // console.log(document.forms["reserve"]["location"].value);
@@ -240,14 +304,13 @@ const valideQuantity = function(inputQuantity) {
 // const locationCity = document.querySelector("#locationCity");
 
 
-const locationCity = document.getElementsByName('location')
-for (e of locationCity) {
-    if (e.checked) console.log(`Elément ${e.id} coché`)
-}
-console.log(locationCity)
+// const locationCity = document.getElementsByName('location')
+// for (e of locationCity) {
+//     if (e.checked) console.log(`Elément ${e.id} coché`)
+// }
+// console.log(locationCity)
 
 
-// const locCity = document.forms["reserve"]["location"];
 
 
 // form.locationCity.addEventListener("input", function() {
@@ -264,8 +327,7 @@ console.log(locationCity)
 // }};
 
 
-// let locationCityValue = document.querySelector("input[name=location]:checked").value;
-// console.log(locationCityValue);
+
 
 // // ////////////////////////////////////////////////////////
 // // //Ecouter la modification de la checkbox1
