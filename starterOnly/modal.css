@@ -378,16 +378,23 @@ input[data-error]::after {
 }
 
 .btn-submit {
-  background: #545454;
   display: block;
   margin: 0 auto;
   border-radius: 7px;
   font-size: 1rem;
   padding: 12px 82px;
   color: #fff;
-  cursor: pointer;
   border: 0;
 }
+.grey {
+  background: #545454;
+  cursor: not-allowed;
+}
+.red {
+  background: #fe142f;
+  cursor: pointer;
+}
+
 
 /* custom select styles */
 .custom-select {

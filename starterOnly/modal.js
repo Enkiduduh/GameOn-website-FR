@@ -119,9 +119,11 @@ if (!(document.forms["reserve"]["location"].value)) {
 //
 
 const validate = function () {
-  if (!errorExists) {
+  if (!errorExists == true) {
     modalBodySuccess.classList.add("modal-body-success");
-    document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription"
+    document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
+    // modalBodySuccess.classList.add("btn-signup");
+
   };
 };
 
@@ -139,8 +141,11 @@ const valideCheckBox1 = function(checkbox1) {
   if (checkBox1.checked) {
     error.innerHTML="";
     errorExists = false;
-    buttonSubmit.setAttribute.background = "#fe142f";
+    buttonSubmit.classList.add("red");
+    buttonSubmit.classList.remove("grey");
   } else {
+    buttonSubmit.classList.add("grey");
+    buttonSubmit.classList.remove("red");
     error.innerHTML="Vous devez vérifier que vous acceptez les termes et conditions.";
     errorExists = true;
   }
@@ -283,13 +288,14 @@ const valideQuantity = function(inputQuantity) {
 
   function checkCitys() {
       console.log(Array.from(citys).some((city) => city.checked));
-      if (document.forms["reserve"]["location"].value) {
+      if (!document.forms["reserve"]["location"].value) {
+        let error = document.querySelector("#errorlocationcity");
+        error.innerHTML="Vous devez choisir une ville pour le tournoi.";
+        errorExists = true;
+      } else {
         errorExists = false;
-      // } else {
-      //   let error = document.querySelector("#errorlocationcity");
-      //   error.innerHTML="Vous devez choisir une ville pour le tournoi.";
-      // }
-    }}
+      }
+    };
 
     citys.forEach((city) => {
       city.addEventListener("change", checkCitys);
