@@ -394,7 +394,14 @@ input[data-error]::after {
   background: #fe142f;
   cursor: pointer;
 }
-
+#btn-submit-success {
+  position: absolute;
+  right: 29%;
+  bottom: 15px;
+}
+.invisible {
+  display: none;
+}
 
 /* custom select styles */
 .custom-select {

@@ -26,6 +26,7 @@ const form = document.getElementById("myForm");
 const modalCloseBtn = document.querySelector(".close");
 const checkBox1 = document.getElementById("checkbox1");
 const buttonSubmit = document.getElementById("btn-submit-final");
+const buttonClose = document.getElementById("btn-submit-success");
 const firstInput = document.getElementById("first");
 const lastInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
@@ -56,36 +57,43 @@ modalCloseBtn.addEventListener("click", closeModal);
 function closeModal() {
   modalbg.style.display = "none";
 }
-////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+buttonClose.addEventListener('click', function () {
+  modalbg.style.display = "none";
+});
+
+//////////////////////////////////////////////////////
 
 
 
 ////////////////////////////////////////////////////////
 //Envoyer le formulaire
-
-
 form.addEventListener("submit", function (e) {
 
 if (!form.first.value) {
   let error = document.querySelector("#errorfirst");
   error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+  firstInput.classList.add("invalid-input");
   errorExists = true;
   e.preventDefault();
 }
 if (!form.last.value) {
   let error = document.querySelector("#errorname");
+  lastInput.classList.add("invalid-input");
   error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
   errorExists = true;
   e.preventDefault();
 }
 if (!form.email.value) {
   let error = document.querySelector("#erroremail");
+  emailInput.classList.add("invalid-input");
   error.innerHTML="Vous devez saisir un email valide. ex: xxx@xx.xx";
   errorExists = true;
   e.preventDefault();
 }
 if (!form.quantity.value) {
   let error = document.querySelector("#errorquantity");
+  quantityInput.classList.add("invalid-input");
   error.innerHTML="Veuillez saisir une valeur numérique entre 0 et 99.";
   errorExists = true;
   e.preventDefault();
@@ -98,6 +106,7 @@ if (!checkBox1.checked) {
 }
 if (!form.birthdate.value) {
   let error = document.querySelector("#errorbirthdate");
+  birthdateInput.classList.add("invalid-input");
   error.innerHTML="Vous devez saisir une date de naissance valide.";
   errorExists = true;
   e.preventDefault();
@@ -115,15 +124,20 @@ if (!(document.forms["reserve"]["location"].value)) {
 
 // };
 // };
+const verifyEntries = function () {
+  if (!errorExists) {
+    // buttonSubmit.setAttributed("disabled", "false");
+    document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
 
-//
+  };
+};
+
 
 const validate = function () {
   if (!errorExists == true) {
     modalBodySuccess.classList.add("modal-body-success");
     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
-    // modalBodySuccess.classList.add("btn-signup");
-
+    buttonClose.classList.remove("invisible");
   };
 };
 
