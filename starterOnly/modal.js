@@ -36,7 +36,7 @@ const modalBodySuccess = document.getElementById("modal")
 
 let formOk = 0;
 
-
+console.log(form);
 // const btnSubmit = document.querySelector(".btn-submit");
 ////////////////////////////////////////////////////////
 // launch modal event
@@ -59,7 +59,16 @@ function closeModal() {
 }
 /////////////////////////////////////////////////////
 buttonClose.addEventListener('click', function () {
+  window.location.reload();
   modalbg.style.display = "none";
+  // console.log(firstInput.value)
+  //  firstInput.value = "";
+  //  console.log(firstInput.value)
+  //  lastInput = "";
+  //  emailInput = "";
+  //  birthInput = "";
+  //  quantityInput = "";
+
 });
 
 //////////////////////////////////////////////////////
@@ -124,13 +133,13 @@ if (!(document.forms["reserve"]["location"].value)) {
 
 // };
 // };
-const verifyEntries = function () {
-  if (!errorExists) {
-    // buttonSubmit.setAttributed("disabled", "false");
-    document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
+// const verifyEntries = function () {
+//   if (!errorExists) {
+//     // buttonSubmit.setAttributed("disabled", "false");
+//     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
 
-  };
-};
+//   };
+// };
 
 
 const validate = function () {
@@ -138,6 +147,7 @@ const validate = function () {
     modalBodySuccess.classList.add("modal-body-success");
     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
     buttonClose.classList.remove("invisible");
+    form.reset();
   };
 };
 
