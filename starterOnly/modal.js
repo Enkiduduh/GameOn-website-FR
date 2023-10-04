@@ -27,16 +27,26 @@ const modalCloseBtn = document.querySelector(".close");
 const checkBox1 = document.getElementById("checkbox1");
 const buttonSubmit = document.getElementById("btn-submit-final");
 const buttonClose = document.getElementById("btn-submit-success");
-const firstInput = document.getElementById("first");
+let firstInput = document.getElementById("first");
 const lastInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
 const birthInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
 const modalBodySuccess = document.getElementById("modal")
 
+
 let formOk = 0;
 
-console.log(form);
+
+
+console.log(document.getElementById("first").value);
+console.log(document.getElementById("last").value);
+console.log(document.getElementById("email").value);
+
+console.log(document.getElementsByTagName("input")[0].value);
+console.log(document.getElementsByTagName("input")[1].value);
+console.log(document.getElementsByTagName("input")[2].value);
+
 // const btnSubmit = document.querySelector(".btn-submit");
 ////////////////////////////////////////////////////////
 // launch modal event
@@ -45,6 +55,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  document.reserve.reset();
 }
 ////////////////////////////////////////////////////////
 
@@ -61,14 +72,6 @@ function closeModal() {
 buttonClose.addEventListener('click', function () {
   window.location.reload();
   modalbg.style.display = "none";
-  // console.log(firstInput.value)
-  //  firstInput.value = "";
-  //  console.log(firstInput.value)
-  //  lastInput = "";
-  //  emailInput = "";
-  //  birthInput = "";
-  //  quantityInput = "";
-
 });
 
 //////////////////////////////////////////////////////
@@ -128,26 +131,12 @@ if (!(document.forms["reserve"]["location"].value)) {
 }
 });
 
-// const preValidate = function () {
-// if (!errorExists) {
-
-// };
-// };
-// const verifyEntries = function () {
-//   if (!errorExists) {
-//     // buttonSubmit.setAttributed("disabled", "false");
-//     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
-
-//   };
-// };
-
 
 const validate = function () {
   if (!errorExists == true) {
     modalBodySuccess.classList.add("modal-body-success");
     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
     buttonClose.classList.remove("invisible");
-    form.reset();
   };
 };
 
