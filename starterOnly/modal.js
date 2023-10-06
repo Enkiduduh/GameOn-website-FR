@@ -30,12 +30,11 @@ const buttonClose = document.getElementById("btn-submit-success");
 let firstInput = document.getElementById("first");
 const lastInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
-const birthInput = document.getElementById("birthdate");
+const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
 const modalBodySuccess = document.getElementById("modal")
 
-
-let formOk = 0;
+let isValid = [];
 
 
 
@@ -86,59 +85,88 @@ if (!form.first.value) {
   let error = document.querySelector("#errorfirst");
   error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
   firstInput.classList.add("invalid-input");
-  errorExists = true;
+
   e.preventDefault();
 }
 if (!form.last.value) {
   let error = document.querySelector("#errorname");
   lastInput.classList.add("invalid-input");
   error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-  errorExists = true;
+
   e.preventDefault();
 }
 if (!form.email.value) {
   let error = document.querySelector("#erroremail");
   emailInput.classList.add("invalid-input");
   error.innerHTML="Vous devez saisir un email valide. ex: xxx@xx.xx";
-  errorExists = true;
+
   e.preventDefault();
 }
 if (!form.quantity.value) {
   let error = document.querySelector("#errorquantity");
   quantityInput.classList.add("invalid-input");
   error.innerHTML="Veuillez saisir une valeur numérique entre 0 et 99.";
-  errorExists = true;
+
   e.preventDefault();
 }
 if (!checkBox1.checked) {
   let error = document.querySelector("#errorcheckbox1");
   error.innerHTML="Vous devez vérifier que vous acceptez les termes et conditions.";
-  errorExists = true;
+
   e.preventDefault();
 }
 if (!form.birthdate.value) {
   let error = document.querySelector("#errorbirthdate");
   birthdateInput.classList.add("invalid-input");
   error.innerHTML="Vous devez saisir une date de naissance valide.";
-  errorExists = true;
+
   e.preventDefault();
 }
 if (!(document.forms["reserve"]["location"].value)) {
   e.preventDefault();
   let error = document.querySelector("#errorlocationcity");
   error.innerHTML="Vous devez choisir une ville pour le tournoi.";
-  errorExists = true;
+
 }
 });
 
 
 const validate = function () {
-  if (!errorExists == true) {
-    modalBodySuccess.classList.add("modal-body-success");
+  let resultat = 0
+  for (i = 0; i < isValid.length; i++) {
+    resultat += isValid[i];
+  }
+    if (resultat == 7) {
+      modalBodySuccess.classList.add("modal-body-success");
     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
     buttonClose.classList.remove("invisible");
+    } else {
+      console.log("Il y a des erreurs dans le formulaire")
+    }
   };
-};
+
+
+
+
+// let resultat = 0
+// for (i = 0; i < isValid.length; i++) {
+//   resultat += isValid[i];
+// }
+//   if (resultat == 7) {
+//     console.log("Yeah")
+//   } else {
+//     console.log("pffff")
+//   }
+
+
+// const validate = function () {
+//   if (errorExists === false) {
+//     modalBodySuccess.classList.add("modal-body-success");
+//     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
+//     buttonClose.classList.remove("invisible");
+//   };
+// };
+// console.log(isValid)
 
 
 
@@ -153,14 +181,14 @@ const valideCheckBox1 = function(checkbox1) {
   let error = document.querySelector("#errorcheckbox1");
   if (checkBox1.checked) {
     error.innerHTML="";
-    errorExists = false;
+    isValid[6] = 1;
     buttonSubmit.classList.add("red");
     buttonSubmit.classList.remove("grey");
   } else {
     buttonSubmit.classList.add("grey");
     buttonSubmit.classList.remove("red");
+    isValid[6] = 0;
     error.innerHTML="Vous devez vérifier que vous acceptez les termes et conditions.";
-    errorExists = true;
   }
 };
 // ////////////////////////////////////////////////////////
@@ -180,13 +208,13 @@ const valideFirst = function(inputFirst) {
   if (testFirst) {
     firstInput.classList.add("valid-input");
     error.innerHTML="";
-    errorExists = false;
+    isValid[0] = 1;
   }
   else {
     firstInput.classList.add("invalid-input");
     firstInput.classList.remove("valid-input");
     error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
-    errorExists = true;
+    isValid[0] = 0;
   }
 };
 
@@ -205,13 +233,14 @@ const valideLast = function(inputLast) {
   if (testLast) {
     lastInput.classList.add("valid-input");
     error.innerHTML="";
-    errorExists = false;
+    console.log(errorExists);
+    isValid[1] = 1;
   }
   else {
     lastInput.classList.add("invalid-input");
     lastInput.classList.remove("valid-input");
     error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    errorExists = true;
+    isValid[1] = 0;
   }
 };
 
@@ -231,12 +260,12 @@ const valideEmail = function(inputEmail) {
   if (testEmail) {
     emailInput.classList.add("valid-input");
     error.innerHTML="";
-    errorExists = false;
+    isValid[2] = 1;
   } else {
     emailInput.classList.add("invalid-input");
     emailInput.classList.remove("valid-input");
     error.innerHTML="Vous devez saisir un email valide. ex: xxx@xx.xx";
-    errorExists = true;
+    isValid[2] = 0;
   }
 };
 
@@ -255,15 +284,15 @@ const valideBirthdate = function(element) {
   let testBirthdate = birthdateRegExp.test(element.value)
   let error = document.querySelector("#errorbirthdate")
   if (testBirthdate) {
-    birthInput.classList.add("valid-input");
+    birthdateInput.classList.add("valid-input");
     error.innerHTML="";
-    errorExists = false;
+    isValid[3] = 1;
   } else {
     console.log(form.birthdate.value);
-    birthInput.classList.add("invalid-input");
-    birthInput.classList.remove("valid-input");
+    birthdateInput.classList.add("invalid-input");
+    birthdateInput.classList.remove("valid-input");
     error.innerHTML="Vous devez saisir une date de naissance valide.";
-    errorExists = true;
+    isValid[3] = 0;
   }
 };
 ////////////////////////////////////////////////////////
@@ -283,17 +312,17 @@ const valideQuantity = function(inputQuantity) {
   if (testQuantity) {
       quantityInput.classList.add("valid-input");
       error.innerHTML="";
-      errorExists = false;
+      isValid[4] = 1;
   } else if (testQuantity.value == "") {
       quantityInput.classList.add("invalid-input");
       quantityInput.classList.remove("valid-input");
       error.innerHTML="Veuillez saisir une valeur numérique entre 0 et 99.";
-      errorExists = true;
+      isValid[4] = 0;
   } else {
       quantityInput.classList.add("invalid-input");
       quantityInput.classList.remove("valid-input");
       error.innerHTML="Veuillez saisir une valeur numérique entre 0 et 99.";
-      errorExists = true;
+      isValid[4] = 0;
   }};
 
 
@@ -304,9 +333,9 @@ const valideQuantity = function(inputQuantity) {
       if (!document.forms["reserve"]["location"].value) {
         let error = document.querySelector("#errorlocationcity");
         error.innerHTML="Vous devez choisir une ville pour le tournoi.";
-        errorExists = true;
+        isValid[5] = 0;
       } else {
-        errorExists = false;
+        isValid[5] = 1;
       }
     };
 
