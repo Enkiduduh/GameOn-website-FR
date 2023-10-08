@@ -80,7 +80,7 @@ img {
   display: none;
 }
 
-@media screen and (max-width: 1115px) {
+@media screen and (max-width: 1120px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
@@ -89,7 +89,7 @@ img {
   }
 }
 
-@media screen and (max-width: 1115px) {
+@media screen and (max-width: 1120px) {
   .topnav.responsive {position: absolute;}
   .topnav.responsive .icon {
     position: absolute;
@@ -182,7 +182,7 @@ main {
 .content {
   margin: 5% auto;
   width: 100%;
-  height:98vh;
+  /* height:110vh; */
   max-width: 500px;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
@@ -197,11 +197,12 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  height:850px;
 }
 .modal-body-success  {
   max-width: 500px;
   width: 100%;
-  height: 90vh;
+  /* height: 90vh; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -212,7 +213,7 @@ label {
   font-size: 17px;
   font-weight: normal;
   display: inline-block;
-  margin-bottom: 11px;
+  margin-bottom: 0;
 }
 input {
   padding: 8px;
@@ -232,12 +233,12 @@ input {
   font-size: 0.4em;
   color: #e54858;
   display: block;
-  margin-top: 7px;
-  margin-bottom: 7px;
+  margin:0px;
+  padding:0px;
   text-align: right;
-  line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
+  height:40px;
 }
 .formData[data-error-visible="true"]::after {
   opacity: 1;
@@ -249,11 +250,11 @@ input {
 .error {
   font-size: 0.4em;
   color: #e54858;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin:0;
   text-align: right;
-  line-height: 0.3;
   transition: 0.3s;
+  position: relative;
+  top:0;
 }
 #errorcheckbox1 {
   font-size: 0.4em;
@@ -390,7 +391,7 @@ input[data-error]::after {
 
 .btn-submit {
   display: block;
-  margin: 0 auto;
+  margin: 10px auto;
   border-radius: 7px;
   font-size: 1rem;
   padding: 12px 82px;
@@ -636,7 +637,7 @@ footer {
     margin: 5% auto;
     width: 100%;
     max-width: 500px;
-    height: 100vh;
+    /* height: 110vh; */
     animation-name: modalopen;
     animation-duration: var(--modal-duration);
     background: #232323;

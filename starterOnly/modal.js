@@ -6,17 +6,8 @@ function editNav() {
     x.className = "topnav";
   }
 }
-
-let errorExists = false;
-let error;
-let errorFirst = true;
-let errorLast = true;
-let errorEmail = true;
-let errorQuantity = true;
-let errorBirth = true;
-let errorCGV = true;
-let errorCity = true;
-let validateFormOk = false;
+// Variable
+let isValid = []; // On stocke 1 si la donnée du form est ok, 0 sinon
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -34,17 +25,6 @@ const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
 const modalBodySuccess = document.getElementById("modal")
 
-let isValid = [];
-
-
-
-console.log(document.getElementById("first").value);
-console.log(document.getElementById("last").value);
-console.log(document.getElementById("email").value);
-
-console.log(document.getElementsByTagName("input")[0].value);
-console.log(document.getElementsByTagName("input")[1].value);
-console.log(document.getElementsByTagName("input")[2].value);
 
 // const btnSubmit = document.querySelector(".btn-submit");
 ////////////////////////////////////////////////////////
@@ -54,19 +34,18 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  document.reserve.reset();
+  document.reserve.reset(); // On reinitialise le formulaire au lancement
 }
-////////////////////////////////////////////////////////
 
 
-//////////////////////////////////////////////////////
-// Fermeture de la modal par écoute du click
+// Fermeture de la modal par écoute du click sur le SPAN "X"
 modalCloseBtn.addEventListener("click", closeModal);
 
 // Fermeture de la modal
 function closeModal() {
   modalbg.style.display = "none";
 }
+
 /////////////////////////////////////////////////////
 buttonClose.addEventListener('click', function () {
   window.location.reload();
@@ -130,7 +109,9 @@ if (!(document.forms["reserve"]["location"].value)) {
 }
 });
 
-
+// ////////////////////////////////////////////////////////
+// //FONCTION VALIDER LE FORMULAIRE
+// ////////////////////////////////////////////////////////
 const validate = function () {
   let resultat = 0
   for (i = 0; i < isValid.length; i++) {
@@ -144,29 +125,6 @@ const validate = function () {
       console.log("Il y a des erreurs dans le formulaire")
     }
   };
-
-
-
-
-// let resultat = 0
-// for (i = 0; i < isValid.length; i++) {
-//   resultat += isValid[i];
-// }
-//   if (resultat == 7) {
-//     console.log("Yeah")
-//   } else {
-//     console.log("pffff")
-//   }
-
-
-// const validate = function () {
-//   if (errorExists === false) {
-//     modalBodySuccess.classList.add("modal-body-success");
-//     document.querySelector(".modal-body").innerHTML = "Merci pour votre inscription."
-//     buttonClose.classList.remove("invisible");
-//   };
-// };
-// console.log(isValid)
 
 
 
@@ -233,7 +191,6 @@ const valideLast = function(inputLast) {
   if (testLast) {
     lastInput.classList.add("valid-input");
     error.innerHTML="";
-    console.log(errorExists);
     isValid[1] = 1;
   }
   else {
@@ -325,16 +282,19 @@ const valideQuantity = function(inputQuantity) {
       isValid[4] = 0;
   }};
 
-
+// ////////////////////////////////////////////////////////
+// //ECOUTER LE CHOIX DE LA VILLE
+// ////////////////////////////////////////////////////////
   const citys = document.querySelectorAll(".city");
 
   function checkCitys() {
       console.log(Array.from(citys).some((city) => city.checked));
+      let error = document.querySelector("#errorlocationcity");
       if (!document.forms["reserve"]["location"].value) {
-        let error = document.querySelector("#errorlocationcity");
         error.innerHTML="Vous devez choisir une ville pour le tournoi.";
         isValid[5] = 0;
       } else {
+        error.innerHTML="";
         isValid[5] = 1;
       }
     };
