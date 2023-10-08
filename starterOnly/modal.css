@@ -80,7 +80,7 @@ img {
   display: none;
 }
 
-@media screen and (max-width: 1120px) {
+@media screen and (max-width: 1128px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
@@ -89,7 +89,7 @@ img {
   }
 }
 
-@media screen and (max-width: 1120px) {
+@media screen and (max-width: 1128px) {
   .topnav.responsive {position: absolute;}
   .topnav.responsive .icon {
     position: absolute;
