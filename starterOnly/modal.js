@@ -234,16 +234,31 @@ const valideEmail = function(inputEmail) {
 form.birthdate.addEventListener('input',function() {
   valideBirthdate(this);
 });
+// let today = new Date().toLocaleDateString()
+// let tmp = today - form.birthdate.value;
+// console.log(today)
+// console.log(form.birthdate.value)
 
 //Fonction vérifier via la RegExp que la birthdate est conforme
 const valideBirthdate = function(element) {
   let birthdateRegExp = new RegExp(/^([\d]{4})[\/\-]((0[1-9])|(1[\d])|(2[\d])|(3[01]))[\/\-]((0[1-9])|(1[12]))$/, 'g');
   let testBirthdate = birthdateRegExp.test(element.value)
   let error = document.querySelector("#errorbirthdate")
-  if (testBirthdate) {
-    birthdateInput.classList.add("valid-input");
-    error.innerHTML="";
-    isValid[3] = 1;
+  let today = new Date()                                                     // Récupération de la date d'aujourd'hui
+  let date3 = new Date(form.birthdate.value);                                // Récupération de la date de naissance
+  let date3FullYear = date3.getFullYear();                                   // On veut récupérer uniquement l'année
+  let todayFullYear = today.getFullYear();                                   // On veut récupérer uniquement l'année
+  const dateDifference =  parseInt(todayFullYear) - parseInt(date3FullYear); // Soustraction "Aujourd'hui - Naissance"
+  if (testBirthdate) {                                                       // On test si l'input est vraie
+    if (dateDifference < 16) {                                               // On test si l'age est inf. à 16
+      birthdateInput.classList.add("invalid-input");
+      birthdateInput.classList.remove("valid-input");
+      error.innerHTML="L'age minimum pour participer est 16 ans, revenez dans quelques années ;)";
+    } else {
+      birthdateInput.classList.add("valid-input");
+      error.innerHTML="";
+      isValid[3] = 1;
+    }
   } else {
     console.log(form.birthdate.value);
     birthdateInput.classList.add("invalid-input");
@@ -251,6 +266,13 @@ const valideBirthdate = function(element) {
     error.innerHTML="Vous devez saisir une date de naissance valide.";
     isValid[3] = 0;
   }
+};
+
+
+
+
+function dateCheck(date1, date2) {
+
 };
 ////////////////////////////////////////////////////////
 
