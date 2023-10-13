@@ -6,7 +6,7 @@ function editNav() {
     x.className = "topnav";
   }
 }
-// Variable
+// Array pour permettre la validation du formulaire
 let isValid = []; // On stocke 1 si la donnée du form est ok, 0 sinon
 
 // DOM Elements
@@ -15,15 +15,18 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 let formData = document.querySelectorAll(".formData");
 const form = document.getElementById("myForm");
 const modalCloseBtn = document.querySelector(".close");
-const checkBox1 = document.getElementById("checkbox1");
+const modalBodySuccess = document.getElementById("modal")
+// DOM Elements Buttons
 const buttonSubmit = document.getElementById("btn-submit-final");
 const buttonClose = document.getElementById("btn-submit-success");
+// DOM Elements Inpputs
 let firstInput = document.getElementById("first");
 const lastInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
 const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
-const modalBodySuccess = document.getElementById("modal")
+const checkBox1 = document.getElementById("checkbox1");
+
 
 
 // const btnSubmit = document.querySelector(".btn-submit");
@@ -44,6 +47,8 @@ modalCloseBtn.addEventListener("click", closeModal);
 // Fermeture de la modal
 function closeModal() {
   modalbg.style.display = "none";
+  document.reserve.reset(); // On reinitialise le formulaire au lancement
+  window.location.reload();
 }
 
 /////////////////////////////////////////////////////
@@ -60,7 +65,7 @@ buttonClose.addEventListener('click', function () {
 //Envoyer le formulaire
 form.addEventListener("submit", function (e) {
 
-if (!form.first.value) {
+if (!form.first.value) {  // S'il n'y a aucune valeur rentrée dans l'input
   let error = document.querySelector("#errorfirst");
   error.innerHTML="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
   firstInput.classList.add("invalid-input");
@@ -234,10 +239,6 @@ const valideEmail = function(inputEmail) {
 form.birthdate.addEventListener('input',function() {
   valideBirthdate(this);
 });
-// let today = new Date().toLocaleDateString()
-// let tmp = today - form.birthdate.value;
-// console.log(today)
-// console.log(form.birthdate.value)
 
 //Fonction vérifier via la RegExp que la birthdate est conforme
 const valideBirthdate = function(element) {
@@ -266,13 +267,6 @@ const valideBirthdate = function(element) {
     error.innerHTML="Vous devez saisir une date de naissance valide.";
     isValid[3] = 0;
   }
-};
-
-
-
-
-function dateCheck(date1, date2) {
-
 };
 ////////////////////////////////////////////////////////
 
