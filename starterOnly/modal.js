@@ -19,7 +19,7 @@ const modalBodySuccess = document.getElementById("modal")
 // DOM Elements Buttons
 const buttonSubmit = document.getElementById("btn-submit-final");
 const buttonClose = document.getElementById("btn-submit-success");
-// DOM Elements Inpputs
+// DOM Elements Inputs
 let firstInput = document.getElementById("first");
 const lastInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
@@ -37,9 +37,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  document.reserve.reset(); // On reinitialise le formulaire au lancement
 }
-
 
 // Fermeture de la modal par écoute du click sur le SPAN "X"
 modalCloseBtn.addEventListener("click", closeModal);
@@ -47,13 +45,11 @@ modalCloseBtn.addEventListener("click", closeModal);
 // Fermeture de la modal
 function closeModal() {
   modalbg.style.display = "none";
-  document.reserve.reset(); // On reinitialise le formulaire au lancement
-  window.location.reload();
 }
 
 /////////////////////////////////////////////////////
 buttonClose.addEventListener('click', function () {
-  window.location.reload();
+  window.location.reload();  // Rechargement de la page uniquement lors de la validation du formulaire
   modalbg.style.display = "none";
 });
 
@@ -159,7 +155,7 @@ const valideCheckBox1 = function(checkbox1) {
 // ////////////////////////////////////////////////////////
 // //ECOUTER L'EVENEMENT INPUT SUR LE PRENOM'
 // ////////////////////////////////////////////////////////
-form.first.addEventListener('input',function() {
+form.first.addEventListener('input',function() { // Validation unitaire en temps réel lors de l'input
   valideFirst(this);
 });
 
